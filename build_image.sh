@@ -48,6 +48,7 @@ ROOTFS_LABEL=rootfs
 
 DIR="$PWD"
 TEMPDIR=$(mktemp -d)
+SCRIPTDIR="$( cd "$( dirname "$0" )" && pwd )"
 
 function is_element_of {
 	testelt=$1
@@ -821,7 +822,8 @@ function populate_boot {
 		echo "-----------------------------"
 
 		umount ${TEMPDIR}/disk || true
-		losetup -d ${BOOT_LOOP}
+		dd if=${SCRIPTDIR}/mbr.bin of=${BOOT_LOOP} count=1 bs=512
+		losetup -d ${BOOT_LOOP}		
 
 		echo "Finished populating Boot Partition"
 		echo "-----------------------------"
@@ -1545,4 +1547,6 @@ create_partitions
 populate_boot
 populate_rootfs
 
-echo "Wrote image to ${MMC}\disk.img"
+mv "${MMC}\disk.img" ${SCRIPTDIR}/OpenROV-windows-image.img
+
+echo "Wrote image to ${SCRIPTDIR}/OpenROV-windows-image.img"
