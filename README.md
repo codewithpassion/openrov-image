@@ -30,7 +30,7 @@ Write the image onto you SD card:
 
 	Find the right /dev/sdX device. The easiest way is to have a look at the output of _dmesg_ after you plugged in the sd-card.
 
-	dd if=OpenROV-2.5-05.img.7z of=/dev/sdX
+	dd if=OpenROV-2.5-05.img of=/dev/sdX
 
 
 *Windows:*
